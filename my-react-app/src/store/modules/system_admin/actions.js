@@ -1,28 +1,28 @@
 
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    CHILDRENTIPS_SUCCESSFULLY_REGISTERED,
-    REGISTERING_CHILDRENTIPS_FAILED,
+    SYSTEM_ADMIN_SUCCESSFULLY_REGISTERED,
+    REGISTERING_SYSTEM_ADMIN_FAILED,
 
-    REGISTERED_CHILDRENTIPS_FETCHED_SUCCESSFULLY,
-    ERROR_FETCHING_CHILDRENTIPS,
-    REGISTERED_CHILDRENTIPS_EMPTY_RESULTS
+    REGISTERED_SYSTEM_ADMIN_FETCHED_SUCCESSFULLY,
+    ERROR_FETCHING_SYSTEM_ADMIN,
+    REGISTERED_SYSTEM_ADMIN_EMPTY_RESULTS
 
 } from "./actionTypes";
 
-export function registerChildrenTips(payload) {
+export function registerSystemAdmin(payload) {
     return async dispatch => {
-        const apiRoute = "/add_children_tips";
+        const apiRoute = "/system_admin_registration";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: CHILDRENTIPS_SUCCESSFULLY_REGISTERED
+                        type: SYSTEM_ADMIN_SUCCESSFULLY_REGISTERED
                     });
                 } else {
                     dispatch({
-                        type: REGISTERING_CHILDRENTIPS_FAILED
+                        type: REGISTERING_SYSTEM_ADMIN_FAILED
                     });
                 }
             },
@@ -36,28 +36,28 @@ export function registerChildrenTips(payload) {
 
 
 
-export function fetchAllChildrenTips() {
+export function fetchAllSystemAdmin() {
     return async dispatch => {
-        const apiRoute = "/get_all_children_tips";
+        const apiRoute = "/get_all_system_admins";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results && result.data.results.length > 0) {
                     dispatch({
-                        type: REGISTERED_CHILDRENTIPS_FETCHED_SUCCESSFULLY,
+                        type: REGISTERED_SYSTEM_ADMIN_FETCHED_SUCCESSFULLY,
                         payload: {
-                            registeredChildrenTips: result.data.results
+                            registeredSystemAdmin: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
-                        type: REGISTERED_CHILDRENTIPS_EMPTY_RESULTS
+                        type: REGISTERED_SYSTEM_ADMIN_EMPTY_RESULTS
                     });
                 }
             },
             function(err) {
                 dispatch({
-                    type: ERROR_FETCHING_CHILDRENTIPS
+                    type: ERROR_FETCHING_SYSTEM_ADMIN
                 });
                 console.log(err);
             }
